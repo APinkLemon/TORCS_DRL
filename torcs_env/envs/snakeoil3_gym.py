@@ -270,7 +270,8 @@ class Client(object):
 
     def get_servers_input(self):
         '''Server's input is stored in a ServerState object'''
-        if not self.so: return
+        if not self.so:
+            return
         sockdata = str()
 
         while True:
@@ -306,14 +307,16 @@ class Client(object):
                 break  # Can now return from this function.
 
     def respond_to_server(self):
-        if not self.so: return
+        if not self.so:
+            return
         try:
             message = repr(self.R)
             self.so.sendto(message.encode(), (self.host, self.port))
         except socket.error as emsg:
             print("Error sending to server: %s Message %s" % (emsg[1], str(emsg[0])))
             sys.exit(-1)
-        if self.debug: print(self.R.fancyout())
+        if self.debug:
+            print(self.R)
         # Or use this for plain output:
         # if self.debug: print self.R
 
@@ -567,7 +570,8 @@ class DriverAction(object):
 def destringify(s):
     '''makes a string into a value or a list of strings into a list of
     values (if possible)'''
-    if not s: return s
+    if not s:
+        return s
     if type(s) is str:
         try:
             return float(s)
